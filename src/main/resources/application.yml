@@ -1,0 +1,7 @@
+security:
+  oauth2:
+    client:
+      client-id: merryyou
+      client-secret: merryyou
+  user:
+    password: 123456
