@@ -5,3 +5,15 @@ security:
       client-secret: merryyou
   user:
     password: 123456
+server:
+  session:
+    timeout: 60
+  port: 9090
+spring:
+  session:
+    store-type: redis
+  redis:
+    host: localhost
+    port: 6379
+logging:
+  level: debug

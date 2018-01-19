@@ -14,6 +14,15 @@ public class SecurityOauth2Application {
 	public Object getCurrentUser1(Authentication authentication) {
 		return authentication;
 	}
+	@GetMapping("/session/invalid")
+	public String invalidSession(){
+		return "session失效";
+	}
+
+	@GetMapping("/")
+	public String index(){
+		return "主页";
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SecurityOauth2Application.class, args);
