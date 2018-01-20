@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class SecurityOauth2Test {
     //端口
-    final static long PORT = 8080;
+    final static long PORT = 9090;
     //clientId
     final static String CLIENT_ID = "merryyou";
     //clientSecret
