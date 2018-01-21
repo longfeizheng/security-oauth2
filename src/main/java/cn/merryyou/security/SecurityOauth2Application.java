@@ -1,5 +1,7 @@
 package cn.merryyou.security;
 
+import cn.merryyou.security.utils.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.core.Authentication;
@@ -8,23 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
+@Slf4j
 public class SecurityOauth2Application {
 
-	@GetMapping("/user")
-	public Object getCurrentUser1(Authentication authentication) {
-		return authentication;
-	}
-	@GetMapping("/session/invalid")
-	public String invalidSession(){
-		return "session失效";
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SecurityOauth2Application.class, args);
+    }
 
-	@GetMapping("/")
-	public String index(){
-		return "主页";
-	}
-
-	public static void main(String[] args) {
-		SpringApplication.run(SecurityOauth2Application.class, args);
-	}
+    @GetMapping("/user")
+    public Object getCurrentUser1(Authentication authentication) {
+        log.info("【SecurityOauth2Application】 getCurrentUser1 authenticaiton={}", JsonUtil.toJson(authentication));
+        return authentication;
+    }
 }

@@ -1,4 +1,4 @@
-package cn.merryyou.security;
+package cn.merryyou.security.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
