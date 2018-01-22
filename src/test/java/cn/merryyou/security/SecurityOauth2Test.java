@@ -44,7 +44,7 @@ public class SecurityOauth2Test {
     public void getUserInfo() throws Exception {
         RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.add("authorization", "Bearer " + getAccessToken());
+        headers.add("authorization", "bearer " + getAccessToken());
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         // pay attention, if using get with headers, should use exchange instead of getForEntity / getForObject
         ResponseEntity<String> result = rest.exchange(USER_INFO_URI, HttpMethod.GET, entity, String.class, new Object[]{null});
