@@ -17,13 +17,16 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableResourceServer
 public class MerryyouResourceServerConfig extends ResourceServerConfigurerAdapter {
 
+    /**
+     * 自定义登录成功处理器
+     */
     @Autowired
     private AuthenticationSuccessHandler appLoginInSuccessHandler;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.formLogin()
-                .successHandler(appLoginInSuccessHandler)
+                .successHandler(appLoginInSuccessHandler)//登录成功处理器
                 .and()
                 .authorizeRequests().anyRequest().authenticated().and()
                 .csrf().disable();

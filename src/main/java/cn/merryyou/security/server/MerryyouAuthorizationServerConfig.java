@@ -47,7 +47,7 @@ public class MerryyouAuthorizationServerConfig extends AuthorizationServerConfig
         endpoints.tokenStore(tokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
-        //自定义token返回结果
+        //扩展token返回结果
         if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
             TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
             List<TokenEnhancer> enhancerList = new ArrayList();
@@ -60,13 +60,18 @@ public class MerryyouAuthorizationServerConfig extends AuthorizationServerConfig
         }
     }
 
+    /**
+     * 配置客户端一些信息
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("merryyou")
                 .secret("merryyou")
                 .accessTokenValiditySeconds(7200)
-                .authorizedGrantTypes("refresh_token", "password", "authorization_code")
+                .authorizedGrantTypes("refresh_token", "password", "authorization_code")//OAuth2支持的验证模式
                 .scopes("all");
     }
 }
