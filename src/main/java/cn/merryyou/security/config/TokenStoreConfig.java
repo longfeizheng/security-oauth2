@@ -1,5 +1,6 @@
 package cn.merryyou.security.config;
 
+import cn.merryyou.security.properties.OAuth2Properties;
 import cn.merryyou.security.security.jwt.MerryyouJwtTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,6 +29,7 @@ public class TokenStoreConfig {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
+
     /**
      * 用于存放token
      * @return
@@ -45,6 +47,9 @@ public class TokenStoreConfig {
     @ConditionalOnProperty(prefix = "merryyou.security.oauth2", name = "storeType", havingValue = "jwt", matchIfMissing = true)
     public static class JwtTokenCofnig{
 
+        @Autowired
+        private OAuth2Properties oAuth2Properties;
+
         /**
          * 使用jwtTokenStore存储token
          * @return
@@ -61,7 +66,7 @@ public class TokenStoreConfig {
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter(){
             JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-            accessTokenConverter.setSigningKey("merryyou");//生成签名的key
+            accessTokenConverter.setSigningKey(oAuth2Properties.getJwtSigningKey());//生成签名的key
             return accessTokenConverter;
         }
 

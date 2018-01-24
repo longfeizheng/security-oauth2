@@ -1,9 +1,13 @@
 package cn.merryyou.security.server;
 
+import cn.merryyou.security.properties.OAuth2ClientProperties;
+import cn.merryyou.security.properties.OAuth2Properties;
+import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -26,6 +30,9 @@ import java.util.List;
 @Configuration
 @EnableAuthorizationServer
 public class MerryyouAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+
+    @Autowired
+    private OAuth2Properties oAuth2Properties;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -62,16 +69,22 @@ public class MerryyouAuthorizationServerConfig extends AuthorizationServerConfig
 
     /**
      * 配置客户端一些信息
+     *
      * @param clients
      * @throws Exception
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("merryyou")
-                .secret("merryyou")
-                .accessTokenValiditySeconds(7200)
-                .authorizedGrantTypes("refresh_token", "password", "authorization_code")//OAuth2支持的验证模式
-                .scopes("all");
+        InMemoryClientDetailsServiceBuilder build = clients.inMemory();
+        if (ArrayUtils.isNotEmpty(oAuth2Properties.getClients())) {
+            for (OAuth2ClientProperties config : oAuth2Properties.getClients()) {
+                build.withClient(config.getClientId())
+                        .secret(config.getClientSecret())
+                        .accessTokenValiditySeconds(config.getAccessTokenValiditySeconds())
+                        .refreshTokenValiditySeconds(60 * 60 * 24 * 15)
+                        .authorizedGrantTypes("refresh_token", "password", "authorization_code")//OAuth2支持的验证模式
+                        .scopes("all");
+            }
+        }
     }
 }

@@ -19,3 +19,10 @@ merryyou:
   security:
     oauth2:
       storeType: jwt
+      jwtSigningKey: merryyou
+      clients[0]:
+        clientId: merryyou
+        clientSecret: merryyou
+      clients[1]:
+              clientId: merryyou1
+              clientSecret: merryyou1
