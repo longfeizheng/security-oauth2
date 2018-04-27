@@ -4,17 +4,24 @@ security:
       client-id: merryyou
       client-secret: merryyou
 server:
-  session:
-    timeout: 60
+#  session:
+#    timeout: 60
   port: 9090
 spring:
-  session:
-    store-type: redis
+#  session:
+#    store-type: redis
   redis:
     host: localhost
-    port: 6380
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        min-idle: 0
+        max-idle: 8
 logging:
-  level: debug
+  level:
+    org.springframework: debug
 merryyou:
   security:
     oauth2:
