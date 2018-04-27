@@ -149,3 +149,6 @@
 ```
 
 [Spring Security系列](https://longfeizheng.github.io/categories/#Security)
+
+## update2018年04月27日
+新增2.0-RELEASE分支，使用springboot 2.0.1.RELEASE版本
