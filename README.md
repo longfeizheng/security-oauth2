@@ -152,3 +152,5 @@
 
 ## update2018年04月27日
 新增2.0-RELEASE分支，使用springboot 2.0.1.RELEASE版本
+## update2018年05月15日
+[springboot2.0-oauth2](https://github.com/longfeizheng/springboot2.0-oauth2)
