@@ -25,11 +25,18 @@ public class MerryyouResourceServerConfig extends ResourceServerConfigurerAdapte
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+
+        // @formatter:off
         http.formLogin()
                 .successHandler(appLoginInSuccessHandler)//登录成功处理器
                 .and()
-                .authorizeRequests().anyRequest().authenticated().and()
+                .authorizeRequests()
+                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/forbidden").hasRole("ADMIN")
+                .anyRequest().authenticated().and()
                 .csrf().disable();
+
+        // @formatter:ON
     }
 
 }
