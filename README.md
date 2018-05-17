@@ -155,4 +155,4 @@
 ## update2018年05月15日
 [springboot2.0-oauth2](https://github.com/longfeizheng/springboot2.0-oauth2)
 ## update2018年05月17日
-[使用Spring MVC测试Spring Security Oauth2 API](使用Spring MVC测试Spring Security Oauth2 API)
+[使用Spring MVC测试Spring Security Oauth2 API](https://longfeizheng.github.io/2018/05/16/%E4%BD%BF%E7%94%A8Spring-MVC%E6%B5%8B%E8%AF%95Spring-Security-Oauth2-API/)
