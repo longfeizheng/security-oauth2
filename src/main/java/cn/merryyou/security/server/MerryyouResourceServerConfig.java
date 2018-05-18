@@ -33,6 +33,7 @@ public class MerryyouResourceServerConfig extends ResourceServerConfigurerAdapte
                 .authorizeRequests()
                 .antMatchers("/user").hasRole("USER")
                 .antMatchers("/forbidden").hasRole("ADMIN")
+                .antMatchers("/permitAll").permitAll()
                 .anyRequest().authenticated().and()
                 .csrf().disable();
 

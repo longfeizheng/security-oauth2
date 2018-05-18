@@ -132,4 +132,14 @@ public class Oauth2MvcTest {
         log.info("access_token={}", accessToken);
         mockMvc.perform(get("/user").header("Authorization", "bearer " + accessToken)).andExpect(status().isOk());
     }
+
+    @Test
+    public void permitAllTest() throws Exception{
+        final String accessToken = obtainAccessToken();
+        log.info("access_token={}", accessToken);
+        String content = mockMvc.perform(get("/permitAll"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        log.info(content);
+    }
 }
