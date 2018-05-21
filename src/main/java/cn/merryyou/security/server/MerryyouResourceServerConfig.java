@@ -1,5 +1,6 @@
 package cn.merryyou.security.server;
 
+import cn.merryyou.security.permit.PermitAllSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,12 +24,17 @@ public class MerryyouResourceServerConfig extends ResourceServerConfigurerAdapte
     @Autowired
     private AuthenticationSuccessHandler appLoginInSuccessHandler;
 
+    @Autowired
+    private PermitAllSecurityConfig permitAllSecurityConfig;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
         // @formatter:off
         http.formLogin()
                 .successHandler(appLoginInSuccessHandler)//登录成功处理器
+                .and()
+                .apply(permitAllSecurityConfig)
                 .and()
                 .authorizeRequests()
                 .antMatchers("/user").hasRole("USER")
