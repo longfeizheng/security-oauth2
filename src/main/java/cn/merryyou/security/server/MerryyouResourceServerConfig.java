@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
@@ -25,6 +26,9 @@ public class MerryyouResourceServerConfig extends ResourceServerConfigurerAdapte
     private AuthenticationSuccessHandler appLoginInSuccessHandler;
 
     @Autowired
+    private AuthenticationFailureHandler appLoginFailureHandler;
+
+    @Autowired
     private PermitAllSecurityConfig permitAllSecurityConfig;
 
     @Override
@@ -33,6 +37,7 @@ public class MerryyouResourceServerConfig extends ResourceServerConfigurerAdapte
         // @formatter:off
         http.formLogin()
                 .successHandler(appLoginInSuccessHandler)//登录成功处理器
+                .failureHandler(appLoginFailureHandler)
                 .and()
                 .apply(permitAllSecurityConfig)
                 .and()
