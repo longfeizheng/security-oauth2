@@ -1,9 +1,11 @@
 package cn.merryyou.security.server;
 
+import cn.merryyou.security.handler.CustomWebResponseExceptionTranslator;
 import cn.merryyou.security.properties.OAuth2ClientProperties;
 import cn.merryyou.security.properties.OAuth2Properties;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,10 +14,14 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
+import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +55,9 @@ public class MerryyouAuthorizationServerConfig extends AuthorizationServerConfig
     @Autowired(required = false)
     private TokenEnhancer jwtTokenEnhancer;
 
+    @Autowired
+    private WebResponseExceptionTranslator customWebResponseExceptionTranslator;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore)
@@ -65,6 +74,7 @@ public class MerryyouAuthorizationServerConfig extends AuthorizationServerConfig
             endpoints.tokenEnhancer(tokenEnhancerChain)
                     .accessTokenConverter(jwtAccessTokenConverter);
         }
+        endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
     }
 
     /**
