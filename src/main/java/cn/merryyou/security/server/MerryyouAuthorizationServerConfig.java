@@ -1,5 +1,6 @@
 package cn.merryyou.security.server;
 
+import cn.merryyou.security.config.AuthExceptionEntryPoint;
 import cn.merryyou.security.handler.CustomWebResponseExceptionTranslator;
 import cn.merryyou.security.properties.OAuth2ClientProperties;
 import cn.merryyou.security.properties.OAuth2Properties;
@@ -96,5 +97,10 @@ public class MerryyouAuthorizationServerConfig extends AuthorizationServerConfig
                         .scopes("all");
             }
         }
+    }
+
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+        oauthServer.authenticationEntryPoint(new AuthExceptionEntryPoint());
     }
 }
